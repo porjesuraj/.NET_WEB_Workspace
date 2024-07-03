@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  recipebook.api:
+    image: ${DOCKER_REGISTRY-}recipebookapi
+    build:
+      context: .
+      dockerfile: RecipeBook.API/Dockerfile
+    depends_on:
+      - sqlserver
+
+  sql-server-db:
+    container_name: sql-server-db
+    image: microsoft/mssql-server-linux:2017-latest
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "change_this_password"
+      ACCEPT_EULA: "Y"
+   
